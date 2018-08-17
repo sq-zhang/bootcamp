@@ -1,6 +1,6 @@
 package com.cbdic.controller;
 
-import com.cbdic.entiry.ResponseObject;
+import com.cbdic.entity.ResponseObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;

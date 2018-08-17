@@ -1,10 +1,10 @@
 package com.cbdic.controller;
 
+import com.cbdic.entity.ResponseObject;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import com.cbdic.entiry.*;
 
 /**
  * Created by sqzhang on 2018/8/17.

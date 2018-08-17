@@ -1,4 +1,4 @@
-package com.cbdic.entiry;
+package com.cbdic.entity;
 
 import java.io.Serializable;
 import lombok.Data;

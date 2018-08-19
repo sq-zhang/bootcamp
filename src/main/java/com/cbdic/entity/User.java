@@ -13,6 +13,10 @@ public class User {
 
     private Date createdAt;
 
+    private String status;
+
+    private Integer score;
+
     public Long getUuid() {
         return uuid;
     }
@@ -51,5 +55,21 @@ public class User {
 
     public void setCreatedAt(Date createdAt) {
         this.createdAt = createdAt;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status == null ? null : status.trim();
+    }
+
+    public Integer getScore() {
+        return score;
+    }
+
+    public void setScore(Integer score) {
+        this.score = score;
     }
 }

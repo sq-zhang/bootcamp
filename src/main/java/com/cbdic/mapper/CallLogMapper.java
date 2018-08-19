@@ -96,4 +96,22 @@ public interface CallLogMapper {
         "where call_log_id = #{callLogId,jdbcType=INTEGER}"
     })
     int updateByPrimaryKey(CallLog record);
+
+    @Insert({
+        "<script>",
+        "insert into call_log (call_log_id, uuid, ",
+        "device_id, call_type, ",
+        "call_time, duration, ",
+        "phone, created_at)",
+        "values ",
+        "<foreach collection =\"list\" item=\"item\" index= \"index\" separator =\",\">",
+        "(#{item.callLogId,jdbcType=INTEGER}, ",
+        "#{item.uuid,jdbcType=BIGINT}, #{item.deviceId,jdbcType=VARCHAR}, ",
+        "#{item.callType,jdbcType=TINYINT}, #{item.callTime,jdbcType=VARCHAR}, ",
+        "#{item.duration,jdbcType=INTEGER}, #{item.phone,jdbcType=VARCHAR}, ",
+        "#{item.createdAt,jdbcType=TIMESTAMP})",
+        "</foreach>",
+        "</script>"
+    })
+    int batchInsertSelective(List<CallLog> records);
 }

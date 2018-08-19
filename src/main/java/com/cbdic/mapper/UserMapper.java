@@ -12,7 +12,6 @@ import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.SelectProvider;
 import org.apache.ibatis.annotations.UpdateProvider;
 import org.apache.ibatis.type.JdbcType;
-import org.springframework.stereotype.Service;
 
 public interface UserMapper {
     @SelectProvider(type=UserSqlProvider.class, method="countByExample")
@@ -23,9 +22,11 @@ public interface UserMapper {
 
     @Insert({
         "insert into user (uuid, name, ",
-        "phone, id_no, created_at)",
-        "values (#{uuid,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, ",
-        "#{phone,jdbcType=VARCHAR}, #{idNo,jdbcType=VARCHAR}, #{createdAt,jdbcType=TIMESTAMP})"
+        "phone, id_no, created_at, ",
+        "status, score)",
+        "values (#{uuid,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, ",
+        "#{phone,jdbcType=VARCHAR}, #{idNo,jdbcType=VARCHAR}, #{createdAt,jdbcType=TIMESTAMP}, ",
+        "#{status,jdbcType=VARCHAR}, #{score,jdbcType=INTEGER})"
     })
     int insert(User record);
 
@@ -34,11 +35,13 @@ public interface UserMapper {
 
     @SelectProvider(type=UserSqlProvider.class, method="selectByExample")
     @Results({
-        @Result(column="uuid", property="uuid", jdbcType=JdbcType.INTEGER),
+        @Result(column="uuid", property="uuid", jdbcType=JdbcType.BIGINT),
         @Result(column="name", property="name", jdbcType=JdbcType.VARCHAR),
         @Result(column="phone", property="phone", jdbcType=JdbcType.VARCHAR),
         @Result(column="id_no", property="idNo", jdbcType=JdbcType.VARCHAR),
-        @Result(column="created_at", property="createdAt", jdbcType=JdbcType.TIMESTAMP)
+        @Result(column="created_at", property="createdAt", jdbcType=JdbcType.TIMESTAMP),
+        @Result(column="status", property="status", jdbcType=JdbcType.VARCHAR),
+        @Result(column="score", property="score", jdbcType=JdbcType.INTEGER)
     })
     List<User> selectByExample(UserExample example);
 

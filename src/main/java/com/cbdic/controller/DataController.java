@@ -13,19 +13,19 @@ import com.cbdic.service.*;
  * data upload
  */
 @RestController
-@RequestMapping("/data/upload")
+@RequestMapping("/data")
 public class DataController {
 
     @Autowired
     DataService dataService;
 
-    @GetMapping("/user")
+    @GetMapping("/upload/user")
     public ResponseObject<Integer> uploadUserData(@RequestParam String filename) {
         Integer count = dataService.uploadUser(filename);
         return new ResponseObject<>(ResponseObject.STATUS_OK, ResponseObject.STATUS_OK, count);
     }
 
-    @GetMapping("/call")
+    @GetMapping("/upload/call")
     public ResponseObject<Integer> uploadCallLog(@RequestParam String filename) {
         Integer count = dataService.uploadCallLog(filename);
         return new ResponseObject<>(ResponseObject.STATUS_OK, ResponseObject.STATUS_OK, count);

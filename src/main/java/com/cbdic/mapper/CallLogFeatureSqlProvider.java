@@ -13,79 +13,94 @@ import static org.apache.ibatis.jdbc.SqlBuilder.UPDATE;
 import static org.apache.ibatis.jdbc.SqlBuilder.VALUES;
 import static org.apache.ibatis.jdbc.SqlBuilder.WHERE;
 
-import com.cbdic.entity.User;
-import com.cbdic.entity.UserExample.Criteria;
-import com.cbdic.entity.UserExample.Criterion;
-import com.cbdic.entity.UserExample;
+import com.cbdic.entity.CallLogFeature;
+import com.cbdic.entity.CallLogFeatureExample.Criteria;
+import com.cbdic.entity.CallLogFeatureExample.Criterion;
+import com.cbdic.entity.CallLogFeatureExample;
 import java.util.List;
 import java.util.Map;
 
-public class UserSqlProvider {
+public class CallLogFeatureSqlProvider {
 
-    public String countByExample(UserExample example) {
+    public String countByExample(CallLogFeatureExample example) {
         BEGIN();
         SELECT("count(*)");
-        FROM("user");
+        FROM("call_log_feature");
         applyWhere(example, false);
         return SQL();
     }
 
-    public String deleteByExample(UserExample example) {
+    public String deleteByExample(CallLogFeatureExample example) {
         BEGIN();
-        DELETE_FROM("user");
+        DELETE_FROM("call_log_feature");
         applyWhere(example, false);
         return SQL();
     }
 
-    public String insertSelective(User record) {
+    public String insertSelective(CallLogFeature record) {
         BEGIN();
-        INSERT_INTO("user");
+        INSERT_INTO("call_log_feature");
         
         if (record.getUuid() != null) {
             VALUES("uuid", "#{uuid,jdbcType=BIGINT}");
         }
         
-        if (record.getName() != null) {
-            VALUES("name", "#{name,jdbcType=VARCHAR}");
+        if (record.getCallsInNinetyDays() != null) {
+            VALUES("calls_in_ninety_days", "#{callsInNinetyDays,jdbcType=INTEGER}");
         }
         
-        if (record.getPhone() != null) {
-            VALUES("phone", "#{phone,jdbcType=VARCHAR}");
+        if (record.getPhonesInNinetyDays() != null) {
+            VALUES("phones_in_ninety_days", "#{phonesInNinetyDays,jdbcType=INTEGER}");
         }
         
-        if (record.getIdNo() != null) {
-            VALUES("id_no", "#{idNo,jdbcType=VARCHAR}");
+        if (record.getCallInInFourWeeks() != null) {
+            VALUES("call_in_in_four_weeks", "#{callInInFourWeeks,jdbcType=INTEGER}");
         }
         
-        if (record.getCreatedAt() != null) {
-            VALUES("created_at", "#{createdAt,jdbcType=TIMESTAMP}");
+        if (record.getCallOutInFourWeeks() != null) {
+            VALUES("call_out_in_four_weeks", "#{callOutInFourWeeks,jdbcType=INTEGER}");
         }
         
-        if (record.getStatus() != null) {
-            VALUES("status", "#{status,jdbcType=VARCHAR}");
+        if (record.getCallInPhonesInFourWeeks() != null) {
+            VALUES("call_in_phones_in_four_weeks", "#{callInPhonesInFourWeeks,jdbcType=INTEGER}");
         }
         
-        if (record.getScore() != null) {
-            VALUES("score", "#{score,jdbcType=INTEGER}");
+        if (record.getCallOutPhonesInFourWeeks() != null) {
+            VALUES("call_out_phones_in_four_weeks", "#{callOutPhonesInFourWeeks,jdbcType=INTEGER}");
+        }
+        
+        if (record.getMinIntervalWithFriends() != null) {
+            VALUES("min_interval_with_friends", "#{minIntervalWithFriends,jdbcType=INTEGER}");
+        }
+        
+        if (record.getSelfCallInNinetyDays() != null) {
+            VALUES("self_call_in_ninety_days", "#{selfCallInNinetyDays,jdbcType=INTEGER}");
+        }
+        
+        if (record.getUpdatedAt() != null) {
+            VALUES("updated_at", "#{updatedAt,jdbcType=TIMESTAMP}");
         }
         
         return SQL();
     }
 
-    public String selectByExample(UserExample example) {
+    public String selectByExample(CallLogFeatureExample example) {
         BEGIN();
         if (example != null && example.isDistinct()) {
             SELECT_DISTINCT("uuid");
         } else {
             SELECT("uuid");
         }
-        SELECT("name");
-        SELECT("phone");
-        SELECT("id_no");
-        SELECT("created_at");
-        SELECT("status");
-        SELECT("score");
-        FROM("user");
+        SELECT("calls_in_ninety_days");
+        SELECT("phones_in_ninety_days");
+        SELECT("call_in_in_four_weeks");
+        SELECT("call_out_in_four_weeks");
+        SELECT("call_in_phones_in_four_weeks");
+        SELECT("call_out_phones_in_four_weeks");
+        SELECT("min_interval_with_friends");
+        SELECT("self_call_in_ninety_days");
+        SELECT("updated_at");
+        FROM("call_log_feature");
         applyWhere(example, false);
         
         if (example != null && example.getOrderByClause() != null) {
@@ -96,38 +111,50 @@ public class UserSqlProvider {
     }
 
     public String updateByExampleSelective(Map<String, Object> parameter) {
-        User record = (User) parameter.get("record");
-        UserExample example = (UserExample) parameter.get("example");
+        CallLogFeature record = (CallLogFeature) parameter.get("record");
+        CallLogFeatureExample example = (CallLogFeatureExample) parameter.get("example");
         
         BEGIN();
-        UPDATE("user");
+        UPDATE("call_log_feature");
         
         if (record.getUuid() != null) {
             SET("uuid = #{record.uuid,jdbcType=BIGINT}");
         }
         
-        if (record.getName() != null) {
-            SET("name = #{record.name,jdbcType=VARCHAR}");
+        if (record.getCallsInNinetyDays() != null) {
+            SET("calls_in_ninety_days = #{record.callsInNinetyDays,jdbcType=INTEGER}");
         }
         
-        if (record.getPhone() != null) {
-            SET("phone = #{record.phone,jdbcType=VARCHAR}");
+        if (record.getPhonesInNinetyDays() != null) {
+            SET("phones_in_ninety_days = #{record.phonesInNinetyDays,jdbcType=INTEGER}");
         }
         
-        if (record.getIdNo() != null) {
-            SET("id_no = #{record.idNo,jdbcType=VARCHAR}");
+        if (record.getCallInInFourWeeks() != null) {
+            SET("call_in_in_four_weeks = #{record.callInInFourWeeks,jdbcType=INTEGER}");
         }
         
-        if (record.getCreatedAt() != null) {
-            SET("created_at = #{record.createdAt,jdbcType=TIMESTAMP}");
+        if (record.getCallOutInFourWeeks() != null) {
+            SET("call_out_in_four_weeks = #{record.callOutInFourWeeks,jdbcType=INTEGER}");
         }
         
-        if (record.getStatus() != null) {
-            SET("status = #{record.status,jdbcType=VARCHAR}");
+        if (record.getCallInPhonesInFourWeeks() != null) {
+            SET("call_in_phones_in_four_weeks = #{record.callInPhonesInFourWeeks,jdbcType=INTEGER}");
         }
         
-        if (record.getScore() != null) {
-            SET("score = #{record.score,jdbcType=INTEGER}");
+        if (record.getCallOutPhonesInFourWeeks() != null) {
+            SET("call_out_phones_in_four_weeks = #{record.callOutPhonesInFourWeeks,jdbcType=INTEGER}");
+        }
+        
+        if (record.getMinIntervalWithFriends() != null) {
+            SET("min_interval_with_friends = #{record.minIntervalWithFriends,jdbcType=INTEGER}");
+        }
+        
+        if (record.getSelfCallInNinetyDays() != null) {
+            SET("self_call_in_ninety_days = #{record.selfCallInNinetyDays,jdbcType=INTEGER}");
+        }
+        
+        if (record.getUpdatedAt() != null) {
+            SET("updated_at = #{record.updatedAt,jdbcType=TIMESTAMP}");
         }
         
         applyWhere(example, true);
@@ -136,22 +163,70 @@ public class UserSqlProvider {
 
     public String updateByExample(Map<String, Object> parameter) {
         BEGIN();
-        UPDATE("user");
+        UPDATE("call_log_feature");
         
         SET("uuid = #{record.uuid,jdbcType=BIGINT}");
-        SET("name = #{record.name,jdbcType=VARCHAR}");
-        SET("phone = #{record.phone,jdbcType=VARCHAR}");
-        SET("id_no = #{record.idNo,jdbcType=VARCHAR}");
-        SET("created_at = #{record.createdAt,jdbcType=TIMESTAMP}");
-        SET("status = #{record.status,jdbcType=VARCHAR}");
-        SET("score = #{record.score,jdbcType=INTEGER}");
+        SET("calls_in_ninety_days = #{record.callsInNinetyDays,jdbcType=INTEGER}");
+        SET("phones_in_ninety_days = #{record.phonesInNinetyDays,jdbcType=INTEGER}");
+        SET("call_in_in_four_weeks = #{record.callInInFourWeeks,jdbcType=INTEGER}");
+        SET("call_out_in_four_weeks = #{record.callOutInFourWeeks,jdbcType=INTEGER}");
+        SET("call_in_phones_in_four_weeks = #{record.callInPhonesInFourWeeks,jdbcType=INTEGER}");
+        SET("call_out_phones_in_four_weeks = #{record.callOutPhonesInFourWeeks,jdbcType=INTEGER}");
+        SET("min_interval_with_friends = #{record.minIntervalWithFriends,jdbcType=INTEGER}");
+        SET("self_call_in_ninety_days = #{record.selfCallInNinetyDays,jdbcType=INTEGER}");
+        SET("updated_at = #{record.updatedAt,jdbcType=TIMESTAMP}");
         
-        UserExample example = (UserExample) parameter.get("example");
+        CallLogFeatureExample example = (CallLogFeatureExample) parameter.get("example");
         applyWhere(example, true);
         return SQL();
     }
 
-    protected void applyWhere(UserExample example, boolean includeExamplePhrase) {
+    public String updateByPrimaryKeySelective(CallLogFeature record) {
+        BEGIN();
+        UPDATE("call_log_feature");
+        
+        if (record.getCallsInNinetyDays() != null) {
+            SET("calls_in_ninety_days = #{callsInNinetyDays,jdbcType=INTEGER}");
+        }
+        
+        if (record.getPhonesInNinetyDays() != null) {
+            SET("phones_in_ninety_days = #{phonesInNinetyDays,jdbcType=INTEGER}");
+        }
+        
+        if (record.getCallInInFourWeeks() != null) {
+            SET("call_in_in_four_weeks = #{callInInFourWeeks,jdbcType=INTEGER}");
+        }
+        
+        if (record.getCallOutInFourWeeks() != null) {
+            SET("call_out_in_four_weeks = #{callOutInFourWeeks,jdbcType=INTEGER}");
+        }
+        
+        if (record.getCallInPhonesInFourWeeks() != null) {
+            SET("call_in_phones_in_four_weeks = #{callInPhonesInFourWeeks,jdbcType=INTEGER}");
+        }
+        
+        if (record.getCallOutPhonesInFourWeeks() != null) {
+            SET("call_out_phones_in_four_weeks = #{callOutPhonesInFourWeeks,jdbcType=INTEGER}");
+        }
+        
+        if (record.getMinIntervalWithFriends() != null) {
+            SET("min_interval_with_friends = #{minIntervalWithFriends,jdbcType=INTEGER}");
+        }
+        
+        if (record.getSelfCallInNinetyDays() != null) {
+            SET("self_call_in_ninety_days = #{selfCallInNinetyDays,jdbcType=INTEGER}");
+        }
+        
+        if (record.getUpdatedAt() != null) {
+            SET("updated_at = #{updatedAt,jdbcType=TIMESTAMP}");
+        }
+        
+        WHERE("uuid = #{uuid,jdbcType=BIGINT}");
+        
+        return SQL();
+    }
+
+    protected void applyWhere(CallLogFeatureExample example, boolean includeExamplePhrase) {
         if (example == null) {
             return;
         }

@@ -1,8 +1,11 @@
 package com.cbdic.entity;
 
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.Date;
 
-public class CallLog {
+public class CallLog implements Comparable <CallLog>{
     private Integer callLogId;
 
     private Long uuid;
@@ -18,6 +21,8 @@ public class CallLog {
     private String phone;
 
     private Date createdAt;
+
+    private LocalDateTime callDateTime;
 
     public Integer getCallLogId() {
         return callLogId;
@@ -82,4 +87,27 @@ public class CallLog {
     public void setCreatedAt(Date createdAt) {
         this.createdAt = createdAt;
     }
+
+    public LocalDateTime getCallDateTime() {
+        return callDateTime;
+    }
+
+    public void setCallDateTime() {
+        this.callDateTime = LocalDateTime.ofInstant(Instant.ofEpochMilli(this.callTime.getTime()),
+            ZoneId.systemDefault());
+    }
+
+    @Override
+    public int compareTo(CallLog callLog) {
+        return callTime.compareTo(callLog.getCallTime());
+    }
+
+    public Boolean isCallIn() {
+        return this.callType == 0;
+    }
+
+    public Boolean isCallOut() {
+        return this.callType == 1;
+    }
+
 }

@@ -1,24 +1,13 @@
 package com.cbdic.service;
 
-import com.cbdic.entity.CallLog;
-import com.cbdic.entity.CallLogExample;
-import com.cbdic.entity.CallLogFeature;
-import com.cbdic.entity.CallLogFeatureExample;
-import com.cbdic.entity.User;
-import com.cbdic.entity.UserExample;
+import com.cbdic.entity.*;
 import com.cbdic.mapper.CallLogFeatureMapper;
 import com.cbdic.mapper.CallLogMapper;
-import com.cbdic.mapper.UserMapper;
 import com.cbdic.utils.DateUtil;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,6 +18,8 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class CallLogService {
+
+    private static final Logger logger = LoggerFactory.getLogger(CallLogService.class);
 
     @Autowired
     private CallLogMapper callLogMapper;

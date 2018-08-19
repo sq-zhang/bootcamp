@@ -4,6 +4,8 @@ import com.cbdic.entity.*;
 import com.cbdic.mapper.*;
 import java.util.ArrayList;
 import java.util.List;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +16,8 @@ import org.springframework.stereotype.Service;
 @Service
 public class ReviewService {
 
+    private static final Logger logger = LoggerFactory.getLogger(ReviewService.class);
+
     @Autowired
     private CallLogFeatureMapper callLogFeatureMapper;
 
@@ -23,11 +27,11 @@ public class ReviewService {
     @Autowired
     private UserMapper userMapper;
 
-    public CallLogFeature getCallLogFeature(Long uuid, Boolean update) {
+    public CallLogFeature getCallLogFeature(Long uuid) {
         CallLogFeatureExample example = new CallLogFeatureExample();
         example.createCriteria().andUuidEqualTo(uuid);
         List<CallLogFeature> callLogFeatures = callLogFeatureMapper.selectByExample(example);
-        if ((callLogFeatures != null && callLogFeatures.isEmpty()) || update) {
+        if (callLogFeatures == null || callLogFeatures.isEmpty()) {
             return callLogService.getFeature(uuid);
         } else {
             return callLogFeatures.get(0);
@@ -47,7 +51,7 @@ public class ReviewService {
                 callLogFeatures.add(callLogFeatureList.get(0));
             } else {
                 CallLogFeature callLogFeature = callLogService.getFeature(user.getUuid());
-                System.out.println(count + " -> " + user.getUuid() + callLogFeature.getUpdatedAt());
+                logger.info("{} -> uuid: {} , {}", count, user.getUuid(), callLogFeature.toString());
                 callLogFeatures.add(callLogFeature);
                 count++;
             }

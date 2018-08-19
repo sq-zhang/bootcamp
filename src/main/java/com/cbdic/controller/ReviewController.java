@@ -5,6 +5,8 @@ import com.cbdic.entity.ResponseObject;
 import com.cbdic.service.ReviewService;
 import com.cbdic.service.UserService;
 import java.util.List;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -20,6 +22,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/review")
 public class ReviewController {
 
+    private static final Logger logger = LoggerFactory.getLogger(ReviewController.class);
+
     @Autowired
     ReviewService reviewService;
 
@@ -28,7 +32,7 @@ public class ReviewController {
 
     @GetMapping("/info")
     public ResponseObject<CallLogFeature> getReviewInfo(@RequestParam Long uuid) {
-        CallLogFeature callLogFeatures = reviewService.getCallLogFeature(uuid, true);
+        CallLogFeature callLogFeatures = reviewService.getCallLogFeature(uuid);
         return new ResponseObject<>(ResponseObject.STATUS_OK, ResponseObject.STATUS_OK, callLogFeatures);
     }
 

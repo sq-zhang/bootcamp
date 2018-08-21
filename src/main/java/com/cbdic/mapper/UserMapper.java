@@ -9,6 +9,7 @@ import org.apache.ibatis.annotations.InsertProvider;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Result;
 import org.apache.ibatis.annotations.Results;
+import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.SelectProvider;
 import org.apache.ibatis.annotations.UpdateProvider;
 import org.apache.ibatis.type.JdbcType;
@@ -50,4 +51,29 @@ public interface UserMapper {
 
     @UpdateProvider(type=UserSqlProvider.class, method="updateByExample")
     int updateByExample(@Param("record") User record, @Param("example") UserExample example);
+
+    @Select({
+        "select",
+        "uuid, name, phone, id_no, created_at, status, score",
+        "from user",
+        "where name like #{name} and ",
+        "phone like #{phone} and ",
+        "id_no like #{id_no}",
+        "limit #{limit}, #{offset}"
+    })
+    @Results({
+        @Result(column="uuid", property="uuid", jdbcType=JdbcType.BIGINT),
+        @Result(column="name", property="name", jdbcType=JdbcType.VARCHAR),
+        @Result(column="phone", property="phone", jdbcType=JdbcType.VARCHAR),
+        @Result(column="id_no", property="idNo", jdbcType=JdbcType.VARCHAR),
+        @Result(column="created_at", property="createdAt", jdbcType=JdbcType.TIMESTAMP),
+        @Result(column="status", property="status", jdbcType=JdbcType.VARCHAR),
+        @Result(column="score", property="score", jdbcType=JdbcType.INTEGER)
+    })
+    List<User> selectByExampleWithCondition(UserExample example,
+        @Param("limit") Integer limit,
+        @Param("offset") Integer offset,
+        @Param("name") String name,
+        @Param("phone") String phone,
+        @Param("id_no") String id_no);
 }

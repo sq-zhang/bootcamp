@@ -31,7 +31,7 @@ public class ReviewService {
         CallLogFeatureExample example = new CallLogFeatureExample();
         example.createCriteria().andUuidEqualTo(uuid);
         List<CallLogFeature> callLogFeatures = callLogFeatureMapper.selectByExample(example);
-        if (callLogFeatures == null || callLogFeatures.isEmpty()) {
+        if (callLogFeatures != null || callLogFeatures.isEmpty()) {
             return callLogService.getFeature(uuid);
         } else {
             return callLogFeatures.get(0);

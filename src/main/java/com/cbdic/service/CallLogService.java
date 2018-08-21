@@ -155,12 +155,12 @@ public class CallLogService {
         }
 
         List<Map.Entry<String,List<CallLog>>> phoneMapList = new ArrayList<>(phoneMap.entrySet());
-        phoneMapList.sort((o1, o2) -> Integer.valueOf(o1.getValue().size()).compareTo(o2.getValue().size()));
+        phoneMapList.sort((o1, o2) -> Integer.valueOf(o2.getValue().size()).compareTo(o1.getValue().size()));
         Integer maxCallTimes = phoneMapList.get(0).getValue().size();
         long minDays = Long.MAX_VALUE;
         for (Map.Entry<String,List<CallLog>> entry : phoneMapList) {
             if(entry.getValue().size() == maxCallTimes) {
-                LocalDateTime date = Collections.min(entry.getValue()).getCallDateTime();
+                LocalDateTime date = Collections.max(entry.getValue()).getCallDateTime();
                 long days = DateUtil.until(date, lastCallDate);
                 minDays = (minDays < days) ? minDays : days;
             } else {
